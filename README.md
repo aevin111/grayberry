@@ -28,5 +28,4 @@ Grayberry's API is an RPC-inspired HTTP API. Every action has a corresponding me
 </ul>
 
 <h3>Installation Instructions</h3>
-<br>
 Coming soon
