@@ -1,0 +1,5 @@
+CHANGE THE ADMIN EMAIL AND PASSWORD AFTER!
+
+Username: admin
+Email: admin@localhost
+Password: 1234

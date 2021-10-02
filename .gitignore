@@ -1,0 +1,39 @@
+HELP.md
+README.md
+mvnw.cmd
+pom.xml
+todo.txt
+mvnw
+mvnw.sh
+target/
+.mvn/
+.settings/
+src/main/resources/application.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+

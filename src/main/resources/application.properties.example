@@ -1,0 +1,6 @@
+spring.datasource.url=jdbc:mariadb://your-host-here:your-ip-here/grayberry?passwordCharacterEncoding=latin1
+spring.datasource.username=grayberry
+spring.datasource.password=your-password-here
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.properties.connection
