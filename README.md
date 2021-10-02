@@ -8,23 +8,28 @@ Grayberry's API is an RPC-inspired HTTP API. Every action has a corresponding me
 <br>
 <br>
 <h3>Requirements</h3>
-- Java 11 or newer
-- MariaDB
+<ul>
+    <li>Java 11 or newer</li>
+    <li>MariaDB 15.1 or newer</li>
+</ul>
 <br>
 <br>
 <h3>Dependencies</h3>
-- Spring Framework
-- Spring Boot
-- Spring Data JDBC
-- Spring Data JPA
-- Spring JDBC
-- Jackson Datatype JSR-310
-- Spring Security
-- Spring Web
-- MariaDB Java Client
-- Spring Boot Test
-- Spring Security Test
+<ul>
+    <li>Spring Framework</li>
+    <li>Spring Boot</li>
+    <li>Spring Data JDBC</li>
+    <li>Spring Data JPA</li>
+    <li>Spring JDBC</li>
+    <li>Jackson Datatype JSR-310</li>
+    <li>Spring Security</li>
+    <li>Spring Web</li>
+    <li>MariaDB Java Client</li>
+    <li>Spring Boot Test</li>
+    <li>Spring Security Test</li>
+</ul>
 <br>
 <br>
 <h3>Installation Instructions</h3>
+<br>
 Coming soon
