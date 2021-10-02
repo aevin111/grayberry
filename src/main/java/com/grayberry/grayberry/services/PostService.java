@@ -126,6 +126,11 @@ public class PostService
         }
     }
     
+    public String getPostsByTitle(String data)
+    {
+        return "";
+    }
+    
     public String deletePost(String sessionToken, Post post)
     {
         Integer userId = sessionRepository.getSessionInfoFromToken(sessionToken).getUserId();
