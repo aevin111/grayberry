@@ -1,6 +1,9 @@
 package com.grayberry.grayberry.repositories;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +16,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer>
     public Account getAccountByEmail(String email);
     @Query("SELECT a FROM account a WHERE a.userId = ?1")
     public Account getAccountByUserId(Integer userId);
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE account a SET a.password = ?1 WHERE a.email = ?2", nativeQuery = true)
+    public void updateAccountPassword(String password, String email);
 }

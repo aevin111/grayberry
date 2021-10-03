@@ -1,7 +1,12 @@
 package com.grayberry.grayberry.services;
 
+import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,42 @@ public class AccountService
     private AccountRepository accountRepository;
     @Autowired
     private SessionRepository sessionRepository;
+    
+    public String changePassword(String data)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        String email = "";
+        String oldPassword = "";
+        String newPassword = "";
+        
+        try
+        {
+            Map<String, String> dataAsMap = mapper.readValue(data, Map.class);
+            email = dataAsMap.get("email");
+            oldPassword = dataAsMap.get("oldPassword");
+            newPassword = dataAsMap.get("newPassword");
+        }
+        
+        catch (IOException e)
+        {
+            logger.error(e.getLocalizedMessage());
+            return "invalid";
+        }
+        
+        Account account = accountRepository.getAccountByEmail(email);
+        
+        if (account.getPassword().equals(oldPassword))
+        {
+            accountRepository.updateAccountPassword(newPassword, email);
+            return "Successfully updated password.";
+        }
+        
+        else
+        {
+            return "Wrong password.";
+        }
+    }
     
     public boolean register(Account account)
     {
