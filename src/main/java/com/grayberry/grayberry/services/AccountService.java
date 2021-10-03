@@ -52,6 +52,8 @@ public class AccountService
         
         if (account.getPassword().equals(oldPassword))
         {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
+            newPassword = encoder.encode(newPassword);
             accountRepository.updateAccountPassword(newPassword, email);
             return "Successfully updated password.";
         }
