@@ -17,9 +17,10 @@ import com.grayberry.grayberry.models.Session;
 import com.grayberry.grayberry.repositories.AccountRepository;
 import com.grayberry.grayberry.repositories.SessionRepository;
 
+
 @Component
 public class PosterOnlyFilter implements Filter
-{
+{   
     @Autowired
     private SessionRepository sessionRepository;
     @Autowired
@@ -43,7 +44,7 @@ public class PosterOnlyFilter implements Filter
             
             else
             {
-                ((HttpServletResponse) response).sendError(403, "You are not authorized to create a post.");
+                ((HttpServletResponse) response).sendError(403, "You are not authorized to perform this action.");
             }
         }
         
