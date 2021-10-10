@@ -22,6 +22,7 @@ Grayberry's API is an RPC-inspired HTTP API. Every action has a corresponding me
     <li>Tagging</li>
     <li>Multiple users</li>
     <li>Moderation</li>
+    <li>Roles</li>
     <li>OAuth2</li>
     <li>Two-factor authentication</li>
 </ul>
