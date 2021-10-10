@@ -66,7 +66,6 @@ public class AccountController
     public ResponseEntity<String> logout(HttpServletRequest request)
     {
         String sessionToken = request.getHeader("Authorization").split(" ")[1];
-        
         String result = accountService.logout(sessionToken);
         String message = "";
        

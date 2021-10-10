@@ -1,10 +1,30 @@
 # Grayberry
-<h4>Status: in progress, not fit for production</h4>
+<h4>Status: in development, not for production yet</h4>
 <h3>What is Grayberry</h3>
 Grayberry is a Java-based headless Content Management System (CMS). It's main use is for blogging but may also be used for other purposes, such as an announcement board, a news page, and more.
 <br>
 <br>
 Grayberry's API is an RPC-inspired HTTP API. Every action has a corresponding method, such as posting, commenting, etc.
+
+<h3>Features</h3>
+<ul>
+    <li>RPC-JSON based HTTP API</li>
+    <li>Titled posts with virtually no character limit (blogging)</li>
+    <li>Password Reset</li>
+    <li>API based administration</li>
+    <li>Token-based security</li>
+    <li>Adaptability for any type of application (phone, web, desktop)</li>
+</ul>
+
+<h3>Upcoming features</h3>
+<ul>
+    <li>Commenting</li>
+    <li>Tagging</li>
+    <li>Multiple users</li>
+    <li>Moderation</li>
+    <li>OAuth2</li>
+    <li>Two-factor authentication</li>
+</ul>
 
 <h3>Requirements</h3>
 <ul>
@@ -27,5 +47,3 @@ Grayberry's API is an RPC-inspired HTTP API. Every action has a corresponding me
     <li>Spring Security Test</li>
 </ul>
 
-<h3>Installation Instructions</h3>
-Coming soon
