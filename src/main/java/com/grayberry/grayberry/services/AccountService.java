@@ -48,19 +48,28 @@ public class AccountService
         }
         
         Session session = sessionRepository.getSessionInfoFromToken(sessionToken);
-        Account account = accountRepository.getAccountByUserId(session.getUserId());
         
-        if (account.getPassword().equals(oldPassword))
+        if (session == null)
         {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
-            newPassword = encoder.encode(newPassword);
-            accountRepository.updateAccountPassword(newPassword, account.getEmail());
-            return "Successfully updated password.";
+            return "failure";
         }
         
         else
         {
-            return "Wrong password.";
+            Account account = accountRepository.getAccountByUserId(session.getUserId());
+            
+            if (account.getPassword().equals(oldPassword))
+            {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
+                newPassword = encoder.encode(newPassword);
+                accountRepository.updateAccountPassword(newPassword, account.getEmail());
+                return "success";
+            }
+            
+            else
+            {
+                return "failure";
+            }
         }
     }
     

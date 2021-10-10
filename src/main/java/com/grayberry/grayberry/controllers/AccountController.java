@@ -19,6 +19,25 @@ public class AccountController
     @Autowired
     private AccountService accountService;
     
+    @PostMapping("/Account/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody String data, HttpServletRequest request)
+    {
+        String sessionToken = request.getHeader("Authorization").split(" ")[1];
+        String message = accountService.changePassword(data, sessionToken);
+        
+        if (message.equals("success"))
+        {
+            message = "Successfully changed password.";
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(message);
+        }
+        
+        else
+        {
+            message = "You have either entered the wrong password, used a different token, and/or the token is invalid.";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).contentType(MediaType.APPLICATION_JSON).body(message);
+        }
+    }
+    
     @PostMapping("/Account/register")
     public ResponseEntity<String> register(@RequestBody Account account)
     {
