@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.grayberry.grayberry.models.Account;
 import com.grayberry.grayberry.models.Role;
+import com.grayberry.grayberry.models.Session;
 import com.grayberry.grayberry.repositories.AccountRepository;
 import com.grayberry.grayberry.repositories.SessionRepository;
 import com.grayberry.grayberry.security.PasswordVerifier;
@@ -26,18 +27,16 @@ public class AccountService
     @Autowired
     private SessionRepository sessionRepository;
     
-    public String changePassword(String data)
+    public String changePassword(String data, String sessionToken)
     {
         ObjectMapper mapper = new ObjectMapper();
         Logger logger = LoggerFactory.getLogger(this.getClass());
-        String email = "";
         String oldPassword = "";
         String newPassword = "";
         
         try
         {
             Map<String, String> dataAsMap = mapper.readValue(data, Map.class);
-            email = dataAsMap.get("email");
             oldPassword = dataAsMap.get("oldPassword");
             newPassword = dataAsMap.get("newPassword");
         }
@@ -48,13 +47,14 @@ public class AccountService
             return "invalid";
         }
         
-        Account account = accountRepository.getAccountByEmail(email);
+        Session session = sessionRepository.getSessionInfoFromToken(sessionToken);
+        Account account = accountRepository.getAccountByUserId(session.getUserId());
         
         if (account.getPassword().equals(oldPassword))
         {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
             newPassword = encoder.encode(newPassword);
-            accountRepository.updateAccountPassword(newPassword, email);
+            accountRepository.updateAccountPassword(newPassword, account.getEmail());
             return "Successfully updated password.";
         }
         
