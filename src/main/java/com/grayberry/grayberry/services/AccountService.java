@@ -27,7 +27,7 @@ public class AccountService
     @Autowired
     private SessionRepository sessionRepository;
     
-    public String changePassword(String data, String sessionToken)
+    public boolean changePassword(String data, String sessionToken)
     {
         ObjectMapper mapper = new ObjectMapper();
         Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,31 +44,33 @@ public class AccountService
         catch (IOException e)
         {
             logger.error(e.getLocalizedMessage());
-            return "invalid";
+            return false;
         }
         
         Session session = sessionRepository.getSessionInfoFromToken(sessionToken);
         
         if (session == null)
         {
-            return "failure";
+            return false;
         }
         
         else
         {
             Account account = accountRepository.getAccountByUserId(session.getUserId());
+            boolean correct = new PasswordVerifier().verifyPassword(oldPassword, account.getPassword());
             
-            if (account.getPassword().equals(oldPassword))
+            if (correct)
             {
+                sessionRepository.destroyAllSessions(account.getUserId());
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
                 newPassword = encoder.encode(newPassword);
                 accountRepository.updateAccountPassword(newPassword, account.getEmail());
-                return "success";
+                return true;
             }
             
             else
             {
-                return "failure";
+                return false;
             }
         }
     }
@@ -95,7 +97,7 @@ public class AccountService
         Account existing = accountRepository.getAccountByEmail(account.getEmail());
         boolean correct = new PasswordVerifier().verifyPassword(account.getPassword(), existing.getPassword());
         
-        if (correct == true)
+        if (correct)
         {
             if (existing.getRoleId() != Role.BANNED)
             {
@@ -116,18 +118,18 @@ public class AccountService
         }
     }
     
-    public String logout(String sessionToken)
+    public boolean logout(String sessionToken)
     {
         int rowsReturned = sessionRepository.destroySession(sessionToken);
         
         if (rowsReturned == 0)
         {
-            return "failed";
+            return false;
         }
         
         else
         {
-            return "success";
+            return true;
         }
     }
 }

@@ -56,7 +56,7 @@ public class PostController
         Integer postId = post.getPostId();
         String postBody = postService.getPostById(postId);
         
-        if (postBody.equals("empty"))
+        if (postBody == null)
         {
             String message = "{\"message\": \"Post not found.\"}";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(message);
@@ -73,10 +73,10 @@ public class PostController
     public ResponseEntity<String> deletePost(@RequestBody Post post, HttpServletRequest request)
     {
         String sessionToken = request.getHeader("Authorization").split(" ")[1];
-        String result = postService.deletePost(sessionToken, post);
+        boolean successful = postService.deletePost(sessionToken, post);
         String message = "";
         
-        if (result.equals("success"))
+        if (successful)
         {
             message = "{\"message\": \"Post deleted.\"}";
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(message);

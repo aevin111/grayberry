@@ -23,11 +23,12 @@ public class AccountController
     public ResponseEntity<String> changePassword(@RequestBody String data, HttpServletRequest request)
     {
         String sessionToken = request.getHeader("Authorization").split(" ")[1];
-        String message = accountService.changePassword(data, sessionToken);
+        boolean successful = accountService.changePassword(data, sessionToken);
+        String message = "";
         
-        if (message.equals("success"))
+        if (successful)
         {
-            message = "Successfully changed password.";
+            message = "Successfully changed password. Login again using your new password.";
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(message);
         }
         
@@ -42,8 +43,9 @@ public class AccountController
     public ResponseEntity<String> register(@RequestBody Account account)
     {
         String message = "";
+        boolean successful = accountService.register(account);
         
-        if (accountService.register(account) == true)
+        if (successful)
         {
             message = "{\"message\": \"Account successfully created.\"}";
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(message);
@@ -85,10 +87,10 @@ public class AccountController
     public ResponseEntity<String> logout(HttpServletRequest request)
     {
         String sessionToken = request.getHeader("Authorization").split(" ")[1];
-        String result = accountService.logout(sessionToken);
+        boolean successful = accountService.logout(sessionToken);
         String message = "";
        
-        if (result.equals("success"))
+        if (successful)
         {
             message = "{\"message\": \"Successfully logged out.\"}";
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(message);

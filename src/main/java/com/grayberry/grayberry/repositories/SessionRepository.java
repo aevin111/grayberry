@@ -20,6 +20,10 @@ public interface SessionRepository extends JpaRepository<Session, Integer>
     @Modifying
     @Query(value = "DELETE FROM session WHERE session_token = ?1", nativeQuery = true)
     public int destroySession(String sessionToken);
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM session WHERE user_id = ?1", nativeQuery = true)
+    public int destroyAllSessions(Integer userId);
     @Query("SELECT s FROM session s WHERE sessionToken = ?1")
     public Session getSessionInfoFromToken(String sessionToken);
 }

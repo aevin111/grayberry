@@ -114,15 +114,14 @@ public class PostService
             catch (JsonProcessingException e)
             {
                 logger.error(e.getMessage());
-                message = "empty";
-                return message;
+                return null;
             }
         }
         
         catch (EntityNotFoundException e)
         {
-            message = "empty";
-            return message;
+            logger.warn("Post not found");
+            return null;
         }
     }
     
@@ -131,19 +130,19 @@ public class PostService
         return "";
     }
     
-    public String deletePost(String sessionToken, Post post)
+    public boolean deletePost(String sessionToken, Post post)
     {
         Integer userId = sessionRepository.getSessionInfoFromToken(sessionToken).getUserId();
         int rowsReturned  = postRepository.deletePost(post.getPostId(), userId);
         
         if (rowsReturned == 0)
         {
-            return "failed";
+            return false;
         }
         
         else
         {
-            return "success";
+            return true;
         }
     }
 }
