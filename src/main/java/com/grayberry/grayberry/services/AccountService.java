@@ -64,7 +64,7 @@ public class AccountService
                 sessionRepository.destroyAllSessions(account.getUserId());
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
                 newPassword = encoder.encode(newPassword);
-                accountRepository.updateAccountPassword(newPassword, account.getEmail());
+                accountRepository.updateAccountPassword(newPassword, account.getUserId());
                 return true;
             }
             

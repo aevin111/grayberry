@@ -18,6 +18,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer>
     public Account getAccountByUserId(Integer userId);
     @Transactional
     @Modifying
-    @Query(value = "UPDATE account a SET a.password = ?1 WHERE a.email = ?2", nativeQuery = true)
-    public void updateAccountPassword(String password, String email);
+    @Query(value = "UPDATE account SET password = ?1 WHERE user_id = ?2", nativeQuery = true)
+    public void updateAccountPassword(String password, Integer userId);
 }
