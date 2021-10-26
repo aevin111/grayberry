@@ -56,15 +56,16 @@ public class AccountService
         
         else
         {
-            Account account = accountRepository.getAccountByUserId(session.getUserId());
+            Integer userId = session.getUserId();
+            Account account = accountRepository.getAccountByUserId(userId);
             boolean correct = new PasswordVerifier().verifyPassword(oldPassword, account.getPassword());
             
             if (correct)
             {
-                sessionRepository.destroyAllSessions(account.getUserId());
+                sessionRepository.destroyAllSessions(userId);
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12, new SecureRandom());
                 newPassword = encoder.encode(newPassword);
-                accountRepository.updateAccountPassword(newPassword, account.getUserId());
+                accountRepository.updateAccountPassword(newPassword, userId);
                 return true;
             }
             
