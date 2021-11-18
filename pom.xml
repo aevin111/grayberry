@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.grayberry</groupId>
 	<artifactId>grayberry</artifactId>
-	<version>0.18.1-ALPHA</version>
+	<version>0.18.2-alpha</version>
 	<name>grayberry</name>
 	<description>Java-based CMS platform</description>
 	<properties>
